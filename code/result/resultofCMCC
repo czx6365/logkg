@@ -1,0 +1,16 @@
+------------------------------ LogKG StratifiedKFold ------------------------------
+fold 1/5: acc=0.9474, macro_f1=0.9206, test_size=19
+fold 2/5: acc=1.0000, macro_f1=1.0000, test_size=19
+fold 3/5: acc=0.8947, macro_f1=0.8611, test_size=19
+fold 4/5: acc=1.0000, macro_f1=1.0000, test_size=18
+fold 5/5: acc=0.9444, macro_f1=0.9333, test_size=18
+============================== StratifiedKFold Summary ==============================
+accuracy: mean=0.9573, std=0.0396
+macro_f1: mean=0.9430, std=0.0525
+confusion_matrix labels: [1, 2, 3, 4, 5, 6]
+[[25  0  0  0  0  0]
+ [ 0 18  0  0  0  0]
+ [ 0  0 12  0  0  0]
+ [ 0  0  0 12  3  1]
+ [ 0  0  0  0  9  0]
+ [ 0  0  0  0  0 13]]
