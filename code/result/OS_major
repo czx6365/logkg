@@ -1,0 +1,13 @@
+------------------------------ Eval Mode: supervised ------------------------------
+fold 1/2: acc=0.7200, macro_f1=0.4528, test_size=250
+fold 2/2: acc=0.6560, macro_f1=0.4760, test_size=250
+============================== Supervised StratifiedKFold Summary ==============================
+accuracy: mean=0.6880, std=0.0320
+macro_f1: mean=0.4644, std=0.0116
+confusion_matrix labels: [0, 1, 2, 3, 4, 5]
+[[  4   5   0   2   0   0]
+ [  0 225   4  42   1   0]
+ [  0  23  20  11   1   0]
+ [  0  28   2  85   2   0]
+ [  0  27   1   5  10   0]
+ [  0   1   0   0   1   0]]
