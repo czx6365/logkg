@@ -11,6 +11,8 @@ from typing import Dict, Iterable, List, Tuple
 
 import pandas as pd
 
+ROOT_DIR = Path(__file__).resolve().parents[2]
+
 HEX_RE = re.compile(r"\b0x[0-9a-fA-F]+\b")
 NUM_RE = re.compile(r"\b\d+\b")
 SPACE_RE = re.compile(r"\s+")
@@ -219,8 +221,8 @@ def preprocess_os_data(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Preprocess OS_data dataset to LogKG case format.")
-    parser.add_argument("--os_data_dir", type=Path, default=Path("../data/OS_data"))
-    parser.add_argument("--output_dir", type=Path, default=Path("../data/OS_preprocessed"))
+    parser.add_argument("--os_data_dir", type=Path, default=ROOT_DIR / "data" / "OS_data")
+    parser.add_argument("--output_dir", type=Path, default=ROOT_DIR / "data" / "OS_preprocessed")
     parser.add_argument(
         "--default_label_level",
         type=str,

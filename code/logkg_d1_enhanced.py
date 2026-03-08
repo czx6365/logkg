@@ -17,7 +17,10 @@ from sklearn.metrics import accuracy_score, confusion_matrix, f1_score
 from sklearn.model_selection import StratifiedKFold
 
 from model import LogKG
-from preprocess_d1_to_logkg import build_sn_index, extract_case_rows, load_logs
+from process.preprocess_d1_to_logkg import build_sn_index, extract_case_rows, load_logs
+
+CODE_DIR = Path(__file__).resolve().parent
+ROOT_DIR = CODE_DIR.parent
 
 
 def compute_squared_edm(X: np.ndarray) -> np.ndarray:
@@ -209,7 +212,7 @@ def run_one_window_eval(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="D1 enhanced LogKG experiment with window search.")
-    parser.add_argument("--d1_dir", type=Path, default=Path("../data/D1"))
+    parser.add_argument("--d1_dir", type=Path, default=ROOT_DIR / "data" / "D1")
     parser.add_argument("--log_file", type=str, default="preliminary_sel_log_dataset.csv")
     parser.add_argument("--label_file", type=str, default="preliminary_train_label_dataset_s.csv")
     parser.add_argument("--window_candidates", type=str, default="6,12,24,48")
@@ -223,7 +226,7 @@ def main() -> None:
     parser.add_argument("--n_splits", type=int, default=5)
     parser.add_argument("--random_state", type=int, default=42)
     parser.add_argument("--rf_n_estimators", type=int, default=300)
-    parser.add_argument("--result_json", type=Path, default=Path("./result/d1_enhanced_search_result.json"))
+    parser.add_argument("--result_json", type=Path, default=CODE_DIR / "result" / "d1_enhanced_search_result.json")
     args = parser.parse_args()
 
     labels_df = pd.read_csv(args.d1_dir / args.label_file)
@@ -320,4 +323,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

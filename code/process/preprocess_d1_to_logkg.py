@@ -11,6 +11,8 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
+ROOT_DIR = Path(__file__).resolve().parents[2]
+
 
 @dataclass
 class SNIndex:
@@ -201,10 +203,10 @@ def preprocess(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Preprocess D1 dataset to LogKG case format.")
-    parser.add_argument("--d1_dir", type=Path, default=Path("../data/D1"))
+    parser.add_argument("--d1_dir", type=Path, default=ROOT_DIR / "data" / "D1")
     parser.add_argument("--log_file", type=str, default="preliminary_sel_log_dataset.csv")
     parser.add_argument("--label_file", type=str, default="preliminary_train_label_dataset_s.csv")
-    parser.add_argument("--output_dir", type=Path, default=Path("../data/D1_preprocessed_s"))
+    parser.add_argument("--output_dir", type=Path, default=ROOT_DIR / "data" / "D1_preprocessed_s")
     parser.add_argument("--history_hours", type=int, default=24)
     parser.add_argument("--use_server_model", action="store_true", default=False)
     parser.add_argument("--fallback_all_before", action="store_true", default=False)
@@ -223,4 +225,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

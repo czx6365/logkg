@@ -15,6 +15,9 @@ from sklearn.model_selection import StratifiedKFold
 
 from model import LogKG
 
+CODE_DIR = Path(__file__).resolve().parent
+ROOT_DIR = CODE_DIR.parent
+
 
 def build_deterministic_random_embedding(event_ids: List[str], embedding_size: int, seed: int) -> Dict[str, np.ndarray]:
     embedding: Dict[str, np.ndarray] = {}
@@ -351,7 +354,7 @@ def evaluate_hierarchical(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Hierarchical (major -> minor) classifier on OS_preprocessed.")
-    parser.add_argument("--os_preprocessed_dir", type=Path, default=Path("../data/OS_preprocessed"))
+    parser.add_argument("--os_preprocessed_dir", type=Path, default=ROOT_DIR / "data" / "OS_preprocessed")
     parser.add_argument("--embedding_size", type=int, default=16)
     parser.add_argument("--embedding_seed", type=int, default=42)
     parser.add_argument("--idf_threshold", type=float, default=0.4)
@@ -359,7 +362,7 @@ def main() -> None:
     parser.add_argument("--min_samples_per_class", type=int, default=2)
     parser.add_argument("--rf_estimators", type=int, default=600)
     parser.add_argument("--random_state", type=int, default=42)
-    parser.add_argument("--result_json", type=Path, default=Path("./result/os_hierarchical_result.json"))
+    parser.add_argument("--result_json", type=Path, default=CODE_DIR / "result" / "os_hierarchical_result.json")
     args = parser.parse_args()
 
     case_dir = args.os_preprocessed_dir / "cases"
