@@ -37,7 +37,7 @@ def load_generation_model(base_model_name: str, adapter_path: str | None = None)
 
 
 
-def _generate_response(
+def generate_response(
     model: Any,
     tokenizer: Any,
     prompt: str,
@@ -63,6 +63,10 @@ def _generate_response(
 
     decoded = tokenizer.decode(out[0], skip_special_tokens=True)
     return decoded[len(prompt):].strip() if decoded.startswith(prompt) else decoded.strip()
+
+
+# Backward-compatible alias for any local imports that still use the old name.
+_generate_response = generate_response
 
 
 
@@ -112,7 +116,7 @@ def infer_cases(
         input_text = "Log sequence: " + "\n".join(f"- {x}" for x in summary_lines)
         instruction = instruction_template.format(fault_type_list=known)
         prompt = build_prompt(instruction, input_text)
-        raw_output = _generate_response(model, tokenizer, prompt, max_new_tokens, temperature, top_p)
+        raw_output = generate_response(model, tokenizer, prompt, max_new_tokens, temperature, top_p)
 
         fault, explanation, parse_valid = parse_fault_and_explanation(raw_output)
         pred_fault = normalize_predicted_label(fault, known)
