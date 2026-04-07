@@ -1,0 +1,29 @@
+seed: 42
+paths:
+  instruction_train: ../data/instruction/os_major_instruction_train.jsonl
+  instruction_val: ../data/instruction/os_major_instruction_val.jsonl
+  checkpoint_dir: ../checkpoints/loginsight_lora
+model:
+  base_model_name: mistralai/Mistral-7B-Instruct-v0.2
+  supported_models:
+    - mistralai/Mistral-7B-Instruct-v0.2
+    - Qwen/Qwen1.5-7B-Chat
+    - meta-llama/Llama-2-7b-hf
+    - google/gemma-7b
+  max_token_length: 4096
+training:
+  learning_rate: 1.0e-4
+  weight_decay: 0.1
+  batch_size: 16
+  gradient_accumulation_steps: 1
+  num_train_epochs: 1
+  train_val_split: 0.1
+  lora_r: 8
+  lora_alpha: 32
+  lora_dropout: 0.05
+  logging_steps: 10
+  save_steps: 100
+  save_total_limit: 2
+  fp16: auto
+  bf16: auto
+  gradient_checkpointing: true

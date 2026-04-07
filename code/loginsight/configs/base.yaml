@@ -1,0 +1,54 @@
+seed: 42
+paths:
+  processed_cases: ../data/processed/os_preprocessed_major.jsonl
+  fols_cases: ../data/processed/os_preprocessed_major_fols.jsonl
+  instruction_all: ../data/instruction/os_major_instruction_all.jsonl
+  instruction_train: ../data/instruction/os_major_instruction_train.jsonl
+  instruction_val: ../data/instruction/os_major_instruction_val.jsonl
+  predictions_path: ../data/processed/os_major_predictions.jsonl
+  eval_csv: ../data/processed/os_major_eval_metrics.csv
+  eval_json: ../data/processed/os_major_eval_details.json
+  adapter_path: ../checkpoints/loginsight_lora/final_adapter
+dataset:
+  name: OS_preprocessed
+fols:
+  clustering_method: dbscan
+  dbscan_eps: 0.6
+  dbscan_min_samples: 2
+  kmeans_k: null
+  agglomerative_k: null
+  tfidf_threshold: 0.0
+  min_tokens_per_line: 1
+  max_summary_lines: 40
+  collapse_consecutive_duplicates: true
+  max_lines_for_clustering: 2000
+instruction:
+  explanation_mode: weak
+  weak_top_k: 3
+  val_ratio: 0.2
+  instruction_template: 'Your task is to determine what type of fault a given set
+    of log information belongs to. Here are the possible fault types in our data scenario:
+    {fault_type_list}. Please determine its fault type based on the log sequence I
+    input and provide your explanation.'
+inference:
+  max_new_tokens: 256
+  temperature: 0.0
+  top_p: 1.0
+  use_instruction_val_only: true
+model:
+  base_model_name: mistralai/Mistral-7B-Instruct-v0.2
+ablation:
+  test_size: 0.2
+  random_state: 42
+  variants:
+  - full_loginsight
+  - without_fols
+  - kmeans_replace
+  - agglomerative_replace
+  output_csv: ../data/processed/os_major_ablation.csv
+  max_cases: 200
+baselines:
+  run_prompt_baseline: false
+  run_rag_baseline: false
+  rag_top_k: 5
+  rag_embedding_model: sentence-transformers/all-MiniLM-L6-v2

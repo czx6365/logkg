@@ -1,0 +1,11 @@
+fols:
+  clustering_method: dbscan
+  dbscan_eps: 0.6
+  dbscan_min_samples: 2
+  kmeans_k: null
+  agglomerative_k: null
+  tfidf_threshold: 0.0
+  min_tokens_per_line: 1
+  max_summary_lines: 40
+  collapse_consecutive_duplicates: true
+  max_lines_for_clustering: 2000

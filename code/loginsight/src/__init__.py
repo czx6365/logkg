@@ -1,0 +1,1 @@
+"""Compact LogInsight reproduction package."""

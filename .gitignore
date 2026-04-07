@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+
+.vscode/
+tmp_glove_repo/
+tmp_pkgs/
+
+code/loginsight/data/processed/os_preprocessed_major.jsonl

@@ -1,0 +1,23 @@
+dataset:
+  name: OS_preprocessed
+  adapter: os_preprocessed
+  os_preprocessed_dir: ../../../data/OS_preprocessed
+  label_level: major
+  max_cases: null
+  parser_variant: regex
+  content_regex: (?P<content>.*)
+  cleanup_patterns:
+  - ^\s*\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?\s*
+  - ^\s*(?:INFO|WARN|WARNING|ERROR|DEBUG|TRACE|FATAL)\s*[:\-]?\s*
+  - ^\s*(?:host|node|instance|service)[=:][^\s]+\s*
+  - \b(?:pid|tid|thread|trace_id|span_id)=[^\s]+
+  preferred_content_fields:
+  - Content
+  - EventTemplate
+  - EventId
+  openstack_jsonl_path: ''
+  hardware_csv_path: ''
+  custom_jsonl_path: ''
+  sample_jsonl_path: ../data/sample/sample_cases.jsonl
+output:
+  processed_path: ../data/processed/os_preprocessed_major.jsonl
