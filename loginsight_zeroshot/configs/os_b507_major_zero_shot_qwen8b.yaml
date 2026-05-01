@@ -1,0 +1,64 @@
+seed: 42
+
+dataset:
+  name: OS_preprocessed_B507
+  adapter: os_preprocessed
+  os_preprocessed_dir: ../../data/OS_preprocessed_B507
+  label_level: major
+  max_cases: null
+  max_lines_per_case: 4000
+  parser_variant: regex
+  content_regex: (?P<content>.*)
+  cleanup_patterns:
+  - ^\s*\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}(?:[.,]\d+)?\s*
+  - ^\s*(?:INFO|WARN|WARNING|ERROR|DEBUG|TRACE|FATAL)\s*[:\-]?\s*
+  - ^\s*(?:host|node|instance|service)[=:][^\s]+\s*
+  - \b(?:pid|tid|thread|trace_id|span_id)=[^\s]+
+  preferred_content_fields:
+  - Content
+  - EventTemplate
+  - EventId
+
+output:
+  processed_path: ../data/processed/os_preprocessed_b507_major.jsonl
+
+paths:
+  processed_cases: ../data/processed/os_preprocessed_b507_major.jsonl
+  predictions_path: ../result/os_b507_major_zero_shot_qwen8b_predictions.jsonl
+  eval_csv: ../result/os_b507_major_zero_shot_qwen8b_eval_metrics.csv
+  eval_json: ../result/os_b507_major_zero_shot_qwen8b_eval_details.json
+
+model:
+  backend: llama_server
+  base_model_name: /Users/czx/Models/Qwen3-8B-GGUF/Qwen3-8B-Q4_K_M.gguf
+  host: 127.0.0.1
+  port: 8092
+  server_model_name: qwen-major-zeroshot-8b
+  llama_cli_path: /opt/homebrew/bin/llama-cli
+  context_size: 8192
+  gpu_layers: auto
+  reasoning: off
+  timeout_seconds: 600
+  max_retries: 5
+  retry_backoff_seconds: 2.0
+
+instruction:
+  instruction_template: "You are a log fault diagnosis expert. Choose the most likely fault type from this candidate list: {fault_type_list}."
+
+fols:
+  clustering_method: dbscan
+  dbscan_eps: 0.6
+  dbscan_min_samples: 2
+  kmeans_k: null
+  agglomerative_k: null
+  tfidf_threshold: 0.0
+  min_tokens_per_line: 1
+  max_summary_lines: 40
+  collapse_consecutive_duplicates: true
+  max_lines_for_clustering: 2000
+
+inference:
+  cv_folds: 1
+  max_new_tokens: 256
+  temperature: 0.0
+  top_p: 1.0
