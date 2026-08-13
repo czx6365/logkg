@@ -1,8 +1,24 @@
+# Python caches and local environments
 __pycache__/
 *.py[cod]
+*.pyo
+.venv/
+venv/
+.env
 
+# IDE / OS files
 .vscode/
+.idea/
+.DS_Store
+
+# Local scratch directories
 tmp_glove_repo/
 tmp_pkgs/
 
-code/loginsight/data/processed/os_preprocessed_major.jsonl
+# Generated LogInsight datasets and model artifacts
+code/loginsight/data/instruction/*.jsonl
+code/loginsight/data/processed/*.jsonl
+code/loginsight/checkpoints/
+checkpoints/
+
+# Keep compact CSV/JSON evaluation summaries that are intentionally curated
